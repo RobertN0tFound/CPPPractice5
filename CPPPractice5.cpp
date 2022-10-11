@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <stdio.h>
+#define _CRT_SECURE_NO_WARNINGS
 
 int main()
 {
@@ -10,8 +11,7 @@ int main()
     unsigned short p;
     unsigned short k;
     unsigned short y = 0;
-    unsigned short temp;
-    printf("Введите маску канала (0-16) >> ");
+    printf("Введите маску канала (0-15) >> ");
     scanf_s("%hu", &c);
     printf("Введите маску внешнего прерывания (0-1) >> ");
     scanf_s("%hu", &e);
@@ -19,37 +19,49 @@ int main()
     scanf_s("%hu", &i);
     printf("Введите маску программного прерывания (0-1) >> ");
     scanf_s("%hu", &p);
-    printf("Введите ключ защиты памяти (0-8) >> ");
+    printf("Введите ключ защиты памяти (0-7) >> ");
     scanf_s("%hu", &k);
-    temp = c & 16;
-    y = y | (temp << 12);
-    temp = e & 1;
-    y = y | (temp << 10);
-    temp = i & 1;
-    y = y | (temp << 11);
-    temp = p & 1;
-    y = y | (temp << 9);
-    temp = k & 8;
-    y = y | (temp << 5);
+    y = c << 12;
+    y |= e << 11;
+    y |= i << 10;
+    y |= p << 9;
+    y |= k << 3;
     printf("\npacked value is decimal=%hu hexadecimal=%x", y, y);
 
-    unsigned short x;
     unsigned short c;
     unsigned short e;
     unsigned short i;
     unsigned short p;
     unsigned short k;
     unsigned short y;
-    printf("Выберите в каком виде будет введено число (0 - hexadecimal, other - decimal) >> ");
-    scanf_s("%hu", &x);
-    if (x == 0)
+    printf("введите слово состояния (0 - шестнадцатеричное) >> ");
+    scanf_s("%hu", &y);
+    if (y == 0)
     {
-        printf("Введите число в 16-ти системе счисления >> ");
+        printf("введите слово состояния в шестнадцатеричной системе счисления >> ");
         scanf_s("%hx", &y);
+        c = (y >> 12) & 0xf;
+        e = (y >> 11) & 0x1;
+        i = (y >> 10) & 0x1;
+        p = (y >> 9) & 0x1;
+        k = (y >> 3) & 0x7;
+        printf("\nмаска канала = %d\n", c);
+        printf("маска внешнего прерывания = %d\n", e);
+        printf("маска внутреннего прерывания = %d\n", i);
+        printf("маска программного прерывания = %d\n", p);
+        printf("ключ защиты памяти = %d\n", k);
     }
     else
     {
-        
+        c = (y >> 12) & 0xf;
+        e = (y >> 11) & 0x1;
+        i = (y >> 10) & 0x1;
+        p = (y >> 9) & 0x1;
+        k = (y >> 3) & 0x7;
+        printf("\nмаска канала = %d\n", c);
+        printf("маска внешнего прерывания = %d\n", e);
+        printf("маска внутреннего прерывания = %d\n", i);
+        printf("маска программного прерывания = %d\n", p);
+        printf("ключ защиты памяти = %d\n", k);
     }
-
 }
