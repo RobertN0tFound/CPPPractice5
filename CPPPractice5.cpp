@@ -1,4 +1,4 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
+﻿//#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <stdio.h>
 
@@ -17,6 +17,7 @@ int main()
     {
         printf("\n\nУпаковка слова состояния программы: 'p'\n");
         printf("Распаковка слова состояния программы: 'u'\n");
+        printf("Для выхода из программы нажмите: 'q'\n");
         printf("Введите код операции из списка выше >> ");
         scanf_s("%s", &x, 5);
         switch (x[0])
@@ -48,7 +49,7 @@ int main()
             if (y == 0)
             {
                 printf("Введите слово состояния в шестнадцатеричной системе счисления >> ");
-                scanf("%hx", &y);
+                scanf_s("%hx", &y);
                 c = (y >> 12) & 0x3;
                 e = (y >> 11) & 0x1;
                 i = (y >> 10) & 0x1;
